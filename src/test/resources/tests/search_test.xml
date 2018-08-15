@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Apartments Search" verbose="1">
+
+    <test name="Apartments Search">
+        <classes>
+            <class name="cases.SearchApartments"/>
+        </classes>
+    </test>
+</suite>

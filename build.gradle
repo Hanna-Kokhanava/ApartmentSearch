@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'com.kokhanava'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    maven {
+        url "http://repo.jenkins-ci.org/releases"
+    }
+}
+
+dependencies {
+    // TestNG
+    compile 'org.testng:testng:6.10'
+    // Selenium Grid
+    compile "org.seleniumhq.selenium:selenium-server:2.53.0"
+
+    compile "org.jetbrains:annotations:13.0"
+}
