@@ -1,6 +1,5 @@
 package services;
 
-import com.google.common.base.Strings;
 import org.apache.http.client.utils.URIBuilder;
 import org.jetbrains.annotations.Nullable;
 import utils.tools.PropertyLoader;
@@ -12,8 +11,9 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class SearchLinkManager {
 
-    private String searchEndPoint = "https://www.olx.pl/nieruchomosci/mieszkania/wynajem/warszawa/?";
-    private String searchPattern = "search[%1$s]=%2$s";
+    private String searchEndPoint = "https://www.olx.pl/";
+    //TODO will be formed dynamically
+    private String apartmentsPath = "nieruchomosci/mieszkania/wynajem/warszawa/";
 
     private enum FilterProperty {
         PRICE_TO("price.to"),
@@ -42,9 +42,9 @@ public class SearchLinkManager {
     }
 
     private enum FilterUrlResource {
-        PRICE_TO_FILTER("filter_float_price:to", FilterProperty.PRICE_TO.getValue()),
-        PRICE_FROM_FILTER("filter_float_price:from", FilterProperty.PRICE_FROM.getValue()),
-        ROOMS_NUMBER_FILTER("filter_enum_rooms", FilterProperty.ROOMS_NUMBER.getValue());
+        PRICE_TO_FILTER("search[filter_float_price:to]", FilterProperty.PRICE_TO.getValue()),
+        PRICE_FROM_FILTER("search[filter_float_price:from]", FilterProperty.PRICE_FROM.getValue()),
+        ROOMS_NUMBER_FILTER("search[filter_enum_rooms]", FilterProperty.ROOMS_NUMBER.getValue());
 
         private String resourceName;
         private String propertyValue;
@@ -65,25 +65,12 @@ public class SearchLinkManager {
 
     public String createURLWithFilters() {
         URIBuilder uriBuilder = getURIBuilder();
+        uriBuilder.setParameter(FilterUrlResource.PRICE_TO_FILTER.getResourceName(), FilterUrlResource.PRICE_TO_FILTER.getPropertyValue());
+        uriBuilder.setParameter(FilterUrlResource.PRICE_FROM_FILTER.getResourceName(), FilterUrlResource.PRICE_FROM_FILTER.getPropertyValue());
+        uriBuilder.setParameter(FilterUrlResource.ROOMS_NUMBER_FILTER.getResourceName(), FilterUrlResource.ROOMS_NUMBER_FILTER.getPropertyValue());
 
-        String filterParams = addParameterToURL(FilterUrlResource.PRICE_TO_FILTER.getResourceName(), FilterUrlResource.PRICE_TO_FILTER.getPropertyValue());
-        filterParams += addParameterToURL(FilterUrlResource.PRICE_FROM_FILTER.getResourceName(), FilterUrlResource.PRICE_FROM_FILTER.getPropertyValue());
-        filterParams += addParameterToURL(FilterUrlResource.ROOMS_NUMBER_FILTER.getResourceName(), FilterUrlResource.ROOMS_NUMBER_FILTER.getPropertyValue());
-
-        return uriBuilder.setPath(filterParams).toString();
+        return uriBuilder.toString();
     }
-
-    private String addParameterToURL(String filterName, String filterValue) {
-        if (Strings.isNullOrEmpty(filterValue)) {
-            return "";
-        }
-
-        return String.format(searchPattern,
-                filterName,
-                filterValue)
-                + "&";
-    }
-
 
     /**
      * Returns {@link URIBuilder} with Endpoint RP
@@ -94,6 +81,7 @@ public class SearchLinkManager {
         String[] endpointSplit = searchEndPoint.split("://");
         return new URIBuilder()
                 .setScheme(endpointSplit[0].trim())
-                .setHost(endpointSplit[1].trim());
+                .setHost(endpointSplit[1].trim())
+                .setPath(apartmentsPath);
     }
 }

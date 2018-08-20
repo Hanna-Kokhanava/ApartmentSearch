@@ -1,15 +1,11 @@
 package utils.tools;
 
-import utils.tools.files.ProjectDir;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 public final class PropertyLoader {
 

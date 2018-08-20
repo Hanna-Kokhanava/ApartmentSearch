@@ -15,7 +15,6 @@ public abstract class BaseTestCase {
     private static final String MAC_PATH_TO_CHROMEDRIVER = "./drivers/chromedriver";
 
     private static final String URL = "https://www.olx.pl/nieruchomosci/mieszkania/wynajem/warszawa/";
-//    private static final String URL = "https://www.olx.pl/nieruchomosci/mieszkania/wynajem/warszawa/?search[filter_float_price:to]=2500";
     protected static WebDriver driver;
     protected WebDriverWait waiter;
 
@@ -27,10 +26,10 @@ public abstract class BaseTestCase {
         ChromeOptions options = new ChromeOptions();
         if (currentOsType.startsWith("Mac")) {
             System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, MAC_PATH_TO_CHROMEDRIVER);
-//            options.addArguments("user-data-dir=/Users/" + currentUserName + "/Library/Application Support/Google/Chrome/Default");
+            options.addArguments("user-data-dir=/Users/" + currentUserName + "/Library/Application Support/Google/Chrome/Default");
         } else {
             System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, WIN_PATH_TO_CHROMEDRIVER);
-//            options.addArguments("user-data-dir=C:/Users/" + currentUserName + "/AppData/Local/Google/Chrome/User Data/Default");
+            options.addArguments("user-data-dir=C:/Users/" + currentUserName + "/AppData/Local/Google/Chrome/User Data/Default");
         }
         options.addArguments("--start-maximized");
 
