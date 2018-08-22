@@ -1,7 +1,6 @@
 package services;
 
 import org.apache.http.client.utils.URIBuilder;
-import org.jetbrains.annotations.Nullable;
 import utils.tools.PropertyLoader;
 import utils.tools.files.ProjectDir;
 
@@ -27,7 +26,6 @@ public class SearchLinkManager {
             propKey = key;
         }
 
-        @Nullable
         public String getValue() {
             String propValue = getRpProperties().getProperty(propKey);
             return isNullOrEmpty(propValue) ? null : propValue;

@@ -19,6 +19,7 @@ dependencies {
     compile 'org.testng:testng:6.10'
     // Selenium Grid
     compile "org.seleniumhq.selenium:selenium-server:2.53.0"
-
-    compile "org.jetbrains:annotations:13.0"
+    // Excel reports
+    compile "org.apache.poi:poi:3.17",
+            'org.apache.poi:poi-ooxml:3.17'
 }

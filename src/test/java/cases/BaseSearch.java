@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
 
 import java.util.concurrent.TimeUnit;
 
-public abstract class BaseTestCase {
+public abstract class BaseSearch {
     private static final String WIN_PATH_TO_CHROMEDRIVER = "./drivers/chromedriver 2.37.exe";
     private static final String MAC_PATH_TO_CHROMEDRIVER = "./drivers/chromedriver";
 
